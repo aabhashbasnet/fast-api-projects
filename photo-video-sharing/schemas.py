@@ -3,11 +3,13 @@ from datetime import datetime
 from typing import Optional
 
 
-# user schemas
-
-
 class UserCreate(BaseModel):
     username: str
+    email: EmailStr
+    password: str
+
+
+class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
@@ -18,8 +20,7 @@ class UserResponse(BaseModel):
     email: EmailStr
     created_at: datetime
 
-    class Config:
-        orm_mode = True
+    model_config = {"from_attributes": True}
 
 
 class Token(BaseModel):
@@ -28,7 +29,7 @@ class Token(BaseModel):
 
 
 class PostCreate(BaseModel):
-    caption: Optional[str]
+    caption: Optional[str] = None
 
 
 class PostResponse(BaseModel):
@@ -38,5 +39,4 @@ class PostResponse(BaseModel):
     created_at: datetime
     owner_id: int
 
-    class Config:
-        orm_mode = True
+    model_config = {"from_attributes": True}
